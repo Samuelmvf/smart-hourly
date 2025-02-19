@@ -7,7 +7,10 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
+	theme: {
+		container: {
+			center: true,
+		},
   	extend: {
   		colors: {
   			background: 'hsl(var(--background))',
