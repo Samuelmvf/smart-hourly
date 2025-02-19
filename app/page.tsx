@@ -1,9 +1,5 @@
-import ThemeToggle from "@/components/theme-toggle/theme-toogle";
-
-export default function Page() {
+export default function HomePage() {
   return <>
-    <ThemeToggle/>
-
     <h1>Hello Next.js!</h1>
   </>
 }
