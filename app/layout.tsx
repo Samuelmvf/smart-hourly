@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../styles/globals.css";
+import "./globals.css";
 
 import { ApplicationHeader } from "@/components/application/header/application-header";
 import { ApplicationContent } from "@/components/application/content/application-content";
@@ -26,10 +26,10 @@ export default function RootLayout({
       <body
         className={`${interFont.className} font-bold antialiased bg-gray-100 dark:bg-gray-800 text-primary dark:text-white box-border`}
       >
-        <ApplicationHeader />
-        <ApplicationContent>
-          {children}
-        </ApplicationContent>
+          <ApplicationHeader />
+          <ApplicationContent>
+            {children}
+          </ApplicationContent>
       </body>
     </html>
   );
