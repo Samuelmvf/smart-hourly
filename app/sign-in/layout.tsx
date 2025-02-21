@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-
+import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Smart Hourly",
-  description: "Modern web application that helps freelancers and independent professionals calculate their hourly rate",
-  openGraph: {
-    title: "Smart Hourly",
-    description: "Modern web application that helps freelancers and independent professionals calculate their hourly rate",
-  }
+  title: "Sign In | SmartHourly",
+  description: "Log in to your account to manage your data and settings.",
+  keywords: ["login", "sign in", "authentication", "SmartHourly"],
+  robots: "index, follow",
 };
 
 const interFont = Inter({ subsets: ["latin"] });

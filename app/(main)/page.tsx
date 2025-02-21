@@ -1,5 +1,5 @@
 export default function HomePage() {
   return <>
-    <h1>Hello Next.js!</h1>
+    <h1>Dashboard</h1>
   </>
 }
