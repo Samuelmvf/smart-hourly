@@ -1,7 +1,7 @@
 import { CircleDollarSign } from "lucide-react";
 
 export function ApplicationLogo() {
-  return (<div className={"flex gap-3 justify-center items-center select-none"}>
+  return (<div className={"flex gap-2 text-left justify-center items-center select-none"}>
     <CircleDollarSign size={40} className={"text-yellow-500"} />
 
     <h1 className={"text-2xl"}>

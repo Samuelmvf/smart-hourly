@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 const menuItems: SidebarItemProps[] = [
   {
     title: "Dashboard",
-    link: "/",
+    link: "/dashboard",
     description: "Overview of your business",
     Icon: LucideLayoutDashboard,
   },
