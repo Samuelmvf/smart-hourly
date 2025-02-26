@@ -6,6 +6,8 @@ import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { MoneyInput, NumberInput } from "@/components/ui/input";
+import { ViewOnlyInput } from "@/components/ui/input/view-only-input";
+import { numberToBRL } from "@/lib/utils";
 
 const MAX_MONTH_HOURS = 24 * 31;
 
@@ -42,6 +44,17 @@ export const ProfessionalInformationForm = ({
     console.log(formValues);
   }
 
+  const baseSalary = form.watch("baseSalary");
+  const monthlyWorkHours = form.watch("monthlyWorkHours");
+
+  const calculatedHourlyRate =
+    numberToBRL(baseSalary / monthlyWorkHours) || "0";
+
+  const hourlyRate =
+    calculatedHourlyRate.includes("NaN") || calculatedHourlyRate.includes("∞")
+      ? "R$ 0,00"
+      : calculatedHourlyRate;
+
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onFormSubmit)}>
@@ -61,6 +74,17 @@ export const ProfessionalInformationForm = ({
             placeholder='Enter your monthly work hours'
             disabled={!isEditing}
           />
+
+          <ViewOnlyInput
+            label='Base Hourly Rate'
+            value={hourlyRate}
+            description='The base hourly rate is calculated based on your base salary and your monthly work hours.'
+          />
+
+          <ViewOnlyInput
+            label='Last Salary update'
+            value={new Date().toLocaleString()}
+          />
         </div>
 
         {isEditing && (
@@ -68,7 +92,20 @@ export const ProfessionalInformationForm = ({
             <Button variant={"confirm"} type='submit'>
               Update
             </Button>
-            <Button variant={"destructiveOutline"} onClick={handleEdit}>
+
+            <Button
+              className='dark:hidden'
+              variant={"destructiveOutline"}
+              onClick={handleEdit}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              className='hidden dark:block'
+              variant={"destructive"}
+              onClick={handleEdit}
+            >
               Cancel
             </Button>
           </div>
