@@ -5,27 +5,15 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { MoneyInput, NumberInput } from "@/components/ui/input";
 
 const MAX_MONTH_HOURS = 24 * 31;
 
 const professionalInformationSchema = z.object({
-  baseSalary: z
-    .number()
-    .min(0, { message: "Base salary must be greater than 0" }),
-  monthlyWorkHours: z
-    .number()
-    .min(0, { message: "Monthly work hours must be greater than 0" })
-    .max(MAX_MONTH_HOURS, {
-      message: `Monthly work hours must be less than ${MAX_MONTH_HOURS}`,
-    }),
+  baseSalary: z.number(),
+  monthlyWorkHours: z.number().max(MAX_MONTH_HOURS, {
+    message: `Monthly work hours must be less than ${MAX_MONTH_HOURS}`,
+  }),
 });
 
 type ProfessionalInformationForm = z.infer<
@@ -58,44 +46,20 @@ export const ProfessionalInformationForm = ({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onFormSubmit)}>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <FormField
-            control={form.control}
+          <MoneyInput
+            form={form}
+            label='Base Salary'
             name='baseSalary'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Base Salary</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder='Enter your base salary'
-                    {...field}
-                    type='number'
-                    disabled={!isEditing}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            placeholder='Enter your base salary'
+            disabled={!isEditing}
           />
 
-          <FormField
-            control={form.control}
+          <NumberInput
+            form={form}
+            label='Monthly Work Hours'
             name='monthlyWorkHours'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Monthly Work Hours</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder='Enter your monthly work hours'
-                    {...field}
-                    type='number'
-                    disabled={!isEditing}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            placeholder='Enter your monthly work hours'
+            disabled={!isEditing}
           />
         </div>
 
