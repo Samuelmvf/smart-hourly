@@ -1,4 +1,5 @@
 "use client";
+import { numberToBRL } from "@/lib/utils";
 import { useReducer } from "react";
 import { UseFormReturn } from "react-hook-form";
 import {
@@ -9,16 +10,6 @@ import {
   FormMessage,
 } from "../form";
 import { Input } from "./input";
-
-// Brazilian currency config
-const moneyFormatter = Intl.NumberFormat("pt-BR", {
-  currency: "BRL",
-  currencyDisplay: "symbol",
-  currencySign: "standard",
-  style: "currency",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
 
 type MoneyInputProps = {
   form: UseFormReturn<any>;
@@ -36,12 +27,12 @@ export const MoneyInput = function ({
   disabled = false,
 }: MoneyInputProps) {
   const initialValue = form.getValues()[name]
-    ? moneyFormatter.format(form.getValues()[name])
+    ? numberToBRL(form.getValues()[name])
     : "";
 
   const [value, setValue] = useReducer((_: any, next: string) => {
     const digits = next.replace(/\D/g, "");
-    return moneyFormatter.format(Number(digits) / 100);
+    return numberToBRL(Number(digits) / 100);
   }, initialValue);
 
   function handleChange(realChangeFn: Function, formattedValue: string) {
