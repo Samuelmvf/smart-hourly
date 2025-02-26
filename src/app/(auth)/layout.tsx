@@ -1,14 +1,6 @@
 import ThemeToggle from "@/components/theme-toggle/theme-toogle";
-import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
 import "../globals.css";
-
-export const metadata: Metadata = {
-  title: "Dashboard | SmartHourly",
-  description: "View your information, statistics, and manage your account.",
-  keywords: ["dashboard", "user panel", "SmartHourly", "management"],
-  robots: "noindex, nofollow",
-};
 
 const oswaldFont = Oswald({
   subsets: ["latin"],
