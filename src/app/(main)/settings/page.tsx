@@ -19,9 +19,19 @@ import { ProfessionalInformationForm } from "./components/professional-informati
 export default function SettingsPage() {
   const [isEditing, setIsEditing] = useState(false);
 
-  function handleEdit() {
-    // TODO: Implement the edit functionality
+  function handleToggleEdit() {
     setIsEditing(!isEditing);
+  }
+
+  function handleCancelEdit() {
+    // TODO: Implement the cancel edit functionality
+    setIsEditing(false);
+  }
+
+  function handleSaveForm(formValues: ProfessionalInformationForm) {
+    // TODO: Implement the save professional information functionality
+    console.log(formValues);
+    setIsEditing(false);
   }
 
   return (
@@ -40,7 +50,7 @@ export default function SettingsPage() {
             </CardDescription>
           </div>
           {!isEditing && (
-            <Button variant='edit' size='icon' onClick={handleEdit}>
+            <Button variant='edit' size='icon' onClick={handleToggleEdit}>
               <Pencil />
             </Button>
           )}
@@ -49,7 +59,8 @@ export default function SettingsPage() {
         <CardContent>
           <ProfessionalInformationForm
             isEditing={isEditing}
-            handleEdit={handleEdit}
+            handleCancelEdit={handleCancelEdit}
+            handleSaveForm={handleSaveForm}
           />
         </CardContent>
       </Card>

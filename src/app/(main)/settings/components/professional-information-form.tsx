@@ -18,18 +18,20 @@ const professionalInformationSchema = z.object({
   }),
 });
 
-type ProfessionalInformationForm = z.infer<
+export type ProfessionalInformationForm = z.infer<
   typeof professionalInformationSchema
 >;
 
 interface ProfessionalInformationFormProps {
   isEditing: boolean;
-  handleEdit: () => void;
+  handleCancelEdit: () => void;
+  handleSaveForm: (formValues: ProfessionalInformationForm) => void;
 }
 
 export const ProfessionalInformationForm = ({
   isEditing,
-  handleEdit,
+  handleCancelEdit,
+  handleSaveForm,
 }: ProfessionalInformationFormProps) => {
   const form = useForm<ProfessionalInformationForm>({
     resolver: zodResolver(professionalInformationSchema),
@@ -38,11 +40,6 @@ export const ProfessionalInformationForm = ({
       monthlyWorkHours: 1,
     },
   });
-
-  function onFormSubmit(formValues: ProfessionalInformationForm) {
-    // TODO: Save the form values to the database
-    console.log(formValues);
-  }
 
   const baseSalary = form.watch("baseSalary");
   const monthlyWorkHours = form.watch("monthlyWorkHours");
@@ -57,7 +54,7 @@ export const ProfessionalInformationForm = ({
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onFormSubmit)}>
+      <form onSubmit={form.handleSubmit(handleSaveForm)}>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           <MoneyInput
             form={form}
@@ -96,7 +93,7 @@ export const ProfessionalInformationForm = ({
             <Button
               className='dark:hidden'
               variant={"destructiveOutline"}
-              onClick={handleEdit}
+              onClick={handleCancelEdit}
             >
               Cancel
             </Button>
@@ -104,7 +101,7 @@ export const ProfessionalInformationForm = ({
             <Button
               className='hidden dark:block'
               variant={"destructive"}
-              onClick={handleEdit}
+              onClick={handleCancelEdit}
             >
               Cancel
             </Button>
