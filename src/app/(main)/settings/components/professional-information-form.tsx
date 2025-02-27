@@ -5,8 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { MoneyInput, NumberInput } from "@/components/ui/input";
-import { ViewOnlyInput } from "@/components/ui/input/view-only-input";
+import { MoneyInput, NumberInput, ViewOnlyInput } from "@/components/ui/input";
 import { numberToBRL } from "@/lib/utils";
 
 const MAX_MONTH_HOURS = 24 * 31;
