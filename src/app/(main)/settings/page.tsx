@@ -3,13 +3,7 @@ import { useState } from "react";
 
 import { LucideCog, Pencil } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
 import { PageTitle } from "@/components/ui/page-title";
@@ -35,19 +29,14 @@ export default function SettingsPage() {
   }
 
   return (
-    <section
-      className='min-w-[400px]'
-      about='Settings | Allow user to define the salary information and expectations'
-    >
+    <section className='min-w-[400px]' about='Settings | Allow user to define the salary information and expectations'>
       <PageTitle title='Settings' Icon={LucideCog} />
 
       <Card className='bg-gray-100 dark:bg-gray-800 mt-3'>
         <CardHeader className='text-xl font-medium grid grid-cols-[1fr_auto]'>
           <div className='flex flex-col flex-1'>
             <CardTitle>Professional Information</CardTitle>
-            <CardDescription>
-              Define your professional information to calculate your salary.
-            </CardDescription>
+            <CardDescription>Define your professional information to calculate your salary.</CardDescription>
           </div>
           {!isEditing && (
             <Button variant='edit' size='icon' onClick={handleToggleEdit}>
@@ -57,11 +46,7 @@ export default function SettingsPage() {
         </CardHeader>
 
         <CardContent>
-          <ProfessionalInformationForm
-            isEditing={isEditing}
-            handleCancelEdit={handleCancelEdit}
-            handleSaveForm={handleSaveForm}
-          />
+          <ProfessionalInformationForm isEditing={isEditing} handleCancelEdit={handleCancelEdit} handleSaveForm={handleSaveForm} />
         </CardContent>
       </Card>
     </section>
