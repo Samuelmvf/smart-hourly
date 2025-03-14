@@ -1,15 +1,7 @@
-import { useAuth } from "@clerk/nextjs";
-import { HttpClient } from ".";
+import { RequestOptions } from ".";
 
-type RequestOptions = RequestInit & {
-  params?: Record<string, string>;
-};
-
-async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
+async function apiFetch(endpoint: string, authToken: string, options: RequestOptions = {}): Promise<Response> {
   const { params, ...fetchOptions } = options;
-
-  const { getToken } = useAuth();
-  const authToken = await getToken();
 
   const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`);
   if (params) {
@@ -25,40 +17,34 @@ async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Prom
     headers.set("Content-Type", "application/json");
   }
 
-  const response = await fetch(url.toString(), {
+  return fetch(url.toString(), {
     ...fetchOptions,
     headers,
   });
-
-  if (!response.ok) {
-    const error = await response.text().catch(() => "Unknown error");
-    throw new Error(error);
-  }
-
-  return response.json();
 }
 
-export const httpClientFetch: HttpClient = {
-  get: <T>(endpoint: string, options?: RequestOptions) => apiFetch<T>(endpoint, { ...options, method: "GET" }),
+export const httpClientFetch = {
+  get: (endpoint: string, authToken: string, options?: RequestOptions) => apiFetch(endpoint, authToken, { ...options, method: "GET" }),
 
-  post: <T>(endpoint: string, data?: any, options?: RequestOptions) =>
-    apiFetch<T>(endpoint, {
+  post: (endpoint: string, authToken: string, data: any, options?: RequestOptions) =>
+    apiFetch(endpoint, authToken, {
       ...options,
       method: "POST",
       body: data ? JSON.stringify(data) : undefined,
     }),
 
-  put: <T>(endpoint: string, data?: any, options?: RequestOptions) =>
-    apiFetch<T>(endpoint, {
+  put: (endpoint: string, authToken: string, data: any, options?: RequestOptions) =>
+    apiFetch(endpoint, authToken, {
       ...options,
       method: "PUT",
       body: data ? JSON.stringify(data) : undefined,
     }),
 
-  delete: <T>(endpoint: string, options?: RequestOptions) => apiFetch<T>(endpoint, { ...options, method: "DELETE" }),
+  delete: (endpoint: string, authToken: string, options?: RequestOptions) =>
+    apiFetch(endpoint, authToken, { ...options, method: "DELETE" }),
 
-  patch: <T>(endpoint: string, data?: any, options?: RequestOptions) =>
-    apiFetch<T>(endpoint, {
+  patch: (endpoint: string, authToken: string, data: any, options?: RequestOptions) =>
+    apiFetch(endpoint, authToken, {
       ...options,
       method: "PATCH",
       body: data ? JSON.stringify(data) : undefined,

@@ -1,19 +1,13 @@
 import { httpClientFetch } from "./fetch";
 
-export interface HttpClient {
-  get: <T>(endpoint: string, options?: any) => Promise<T>;
-  post: <T>(endpoint: string, data?: any, options?: any) => Promise<T>;
-  put: <T>(endpoint: string, data?: any, options?: any) => Promise<T>;
-  delete: <T>(endpoint: string, options?: any) => Promise<T>;
-  patch: <T>(endpoint: string, data?: any, options?: any) => Promise<T>;
-}
+export type RequestOptions = RequestInit & {
+  params?: Record<string, string>;
+};
 
-type HttpClientType = "fetch";
-
-const clients: Record<string, HttpClient> = {
+const clients = {
   fetch: httpClientFetch,
 };
 
-const defaultClientType: HttpClientType = "fetch";
+const defaultClientType = "fetch";
 
 export const httpClient = clients[defaultClientType];
