@@ -1,14 +1,7 @@
 "use client";
 
-import { useReducer } from "react";
 import { UseFormReturn } from "react-hook-form";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../form";
 import { Input } from "./input";
 
 type NumberInputProps = {
@@ -17,23 +10,13 @@ type NumberInputProps = {
   label: string;
   placeholder: string;
   disabled?: boolean;
+  value: number;
+  setValue: (value: string) => void;
 };
 
 const numericCharactersRegex = /\D/g;
 
-export const NumberInput = function ({
-  form,
-  name,
-  label,
-  placeholder,
-  disabled = false,
-}: NumberInputProps) {
-  const initialValue = form.getValues()[name] || 0;
-
-  const [value, setValue] = useReducer((_: any, next: string) => {
-    return Number(next.replace(numericCharactersRegex, ""));
-  }, initialValue);
-
+export const NumberInput = function ({ form, name, label, placeholder, disabled = false, value, setValue }: NumberInputProps) {
   function handleChange(realChangeFn: Function, formattedValue: string) {
     const digits = formattedValue.replace(numericCharactersRegex, "");
     realChangeFn(Number(digits));

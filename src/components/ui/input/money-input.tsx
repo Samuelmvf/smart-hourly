@@ -1,14 +1,7 @@
 "use client";
 import { numberToBRL } from "@/lib/utils";
-import { useReducer } from "react";
 import { UseFormReturn } from "react-hook-form";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../form";
 import { Input } from "./input";
 
 type MoneyInputProps = {
@@ -17,23 +10,12 @@ type MoneyInputProps = {
   label: string;
   placeholder: string;
   disabled?: boolean;
+  value: string;
+  setValue: (value: string) => void;
 };
 
-export const MoneyInput = function ({
-  form,
-  name,
-  label,
-  placeholder,
-  disabled = false,
-}: MoneyInputProps) {
-  const initialValue = form.getValues()[name]
-    ? numberToBRL(form.getValues()[name])
-    : "";
-
-  const [value, setValue] = useReducer((_: any, next: string) => {
-    const digits = next.replace(/\D/g, "");
-    return numberToBRL(Number(digits) / 100);
-  }, initialValue);
+export const MoneyInput = function ({ form, name, label, placeholder, disabled = false, value, setValue }: MoneyInputProps) {
+  const initialValue = form.getValues()[name] ? numberToBRL(form.getValues()[name]) : "";
 
   function handleChange(realChangeFn: Function, formattedValue: string) {
     const digits = formattedValue.replace(/\D/g, "");
